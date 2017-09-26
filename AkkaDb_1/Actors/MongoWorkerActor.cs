@@ -125,7 +125,7 @@ namespace AkkaDb_1.Actors
                     var filter = Builders<User>.Filter.Eq("Name", user.Name);
                     await collection.Find(filter).ToListAsync().ContinueWith<object>(result =>
                     {
-                        if (!result.IsFaulted && !result.IsCanceled)
+                        if (!result.IsFaulted && !result.IsCanceled && result.Result.Count>0)
                         {
                             Sender.Tell(new ReturnQueryData(result.Result));
                         }
